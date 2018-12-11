@@ -12,7 +12,7 @@ Air quality is a major concern of cities nowadays, since it's well known that ai
 
 This index is used by the Canadian Government to measure the level of risk for population due to bad quality air exposure, and is calculated based on the relative risks of a combination of common air pollutants that is known to harm human health:
 
--   *Nitrogen Dioxide (NO2), Particulate Matters (PM2.5) and Ground Ozone (O3)*
+-   *Nitrogen Dioxide (NO2), Fine Particulate Matter (PM2.5) and Ground-level Ozone (O3)*
 
 You can learn more about this indicator in the [Canadian Government website](https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/about.html), as well as check the [current observations and forecasts](http://www.airqualityontario.com/aqhi/) of air quality for the province of Ontario.
 
@@ -24,7 +24,7 @@ You can learn more about this indicator in the [Canadian Government website](htt
 
 All the datasets used for this project can be found on the airqualityontario website, following this [link](http://www.airqualityontario.com/history/index.php). Just choose a station, a pollutant and a period of time and you'll be ready to download your dataset in XML, CSV file or HTML.
 
-My selection are three CSV files comprising the period starting in January 2012 and ending in December 2012, for the Toronto Downtown station, one for each one of the pollutants mentioned above: Nitrogen Dioxide (NO2), Particulate Matters (PM2.5) and Ground Ozone (O3).
+My selection are three CSV files comprising the period starting in January 2012 and ending in December 2012, for the Toronto Downtown station, one for each one of the pollutants mentioned above: Nitrogen Dioxide (NO2), Fine Particulate Matter (PM2.5) and Ground-level Ozone (O3).
 
 I would like to remark the fact that some previous work had to be done on the original CSV files before importing them into RStudio. You can find the cleaned datasets, ready to be used for the analysis, in the repository for this project.
 
@@ -34,7 +34,7 @@ Main insights
 #### Regarding Missing Data and Invalid Data (all together, considered as NAs)
 
 -   Missing and Invalid Data for each pollutant:
-    -   0.96% for NO2; 1.81% for PM2.5; 0.26% for O3
+    -   0.96% for NO2; 1.81% for PM2.5; 0.26% for O3 ![Image 1. Invalid values for NO2](./Images/Invalid_no2.png)
 -   NO2 and PM2.5 measures have the same missing data.
 -   3 out of 4 invalid data for NO2 are produced at the same time and with the same duration than for PM2.5
     -   *The latter bullet-points suggest a sort of connection between the data sources of NO2 and PM2.5*
@@ -53,6 +53,8 @@ For the Toronto Downtown station in 2012, I observe:
 -   The period between June and November, but October, there are the most hours with medium and high risk levels for health
 -   The period between January and April is when the air quality levels are better for people's health
 
+![Image 2. Levels of AQHI by month](./Images/aqhi.png)
+
 #### Next steps: Ideas for further analysis
 
 -   Evolution through time, considering data of more than one year
@@ -60,6 +62,19 @@ For the Toronto Downtown station in 2012, I observe:
 -   How weather conditions such as rain, temperature, wind or atmospheric pressure affect air quality
 -   How different conditions of sources of pollution affect air quality *Traffic road conditions...*
 -   Air quality performance according dayweek and/or hour
+
+The Air Quality Monitoring Dashboard
+------------------------------------
+
+This project includes the design of a dashboard to monitor the levels of pollutants in the air. It's divided into two different parts, in separated tabs: current measures and historical data.
+
+#### Current Measures
+
+It shows the measures of the three pollutants at the current time, as well as the calculated AQHI for this time. It also shows the average value for each pollutant and the maximum value reached. Users can interact with the application and can select a specific day and time to visualize the current values at that instant. The app is currently using data from the whole 2012, but it could be easily adapted to show data for the previous 365 days.
+
+#### Historical Data
+
+It shows the evolution through the year of the measured levels of the three pollutants. Users can interact with the app so they can choose which pollutant they want to plot. As the previous tab, it could be easily adapted to show information about a previous period, chosen by the users, for instance, 3 months, 6 months, 12 months or even longer in case there were data available.
 
 Scripts description
 -------------------
