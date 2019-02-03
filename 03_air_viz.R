@@ -32,6 +32,13 @@ ggplot(pollutants.plot.df,aes(DateTime,NO2)) + geom_line()
 ggplot(pollutants.plot.df,aes(DateTime,PM25)) + geom_line()
 ggplot(pollutants.plot.df,aes(DateTime,O3)) + geom_line()
 
+ggplot(pollutants.plot.df,aes(DateTime,O3)) + geom_line(color="#002266") + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(),
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) +
+  scale_x_datetime(labels = scales::date_format("%m-%Y")) +
+  ggtitle("O3 - Hourly Values") + ylim(0,100)
+
+
 hist(pollutants.plot.df$NO2)
 boxplot(pollutants.plot.df$NO2)
 
@@ -54,6 +61,12 @@ ggplot(pollutants.daily.df,aes(DayMonth,dmean.NO2)) + geom_line()
 ggplot(pollutants.daily.df,aes(DayMonth,dmean.PM25)) + geom_line()
 ggplot(pollutants.daily.df,aes(DayMonth,dmean.O3)) + geom_line()
 
+ggplot(pollutants.daily.df,aes(DayMonth,dmean.O3)) + geom_line(color="#002266") + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(),
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) +
+  scale_x_date(labels = scales::date_format("%m-%Y")) +
+  ggtitle("O3 - Daily Values") + ylim(0,100)
+
 ggplot(pollutants.daily.df[month(pollutants.daily.df$DayMonth) == 7,],aes(DayMonth,dmean.O3)) + geom_line()
 range(pollutants.daily.df[month(pollutants.daily.df$DayMonth) == 7,]$dmean.O3)
 
@@ -65,13 +78,19 @@ ggplotly(p)
 pollutants.monthly.df <- pollutants.plot.df %>% 
   mutate(month = str_pad(month(DateTime),2,"left","0"), year = year(DateTime)) %>% 
   unite(Month, year, month, sep = "-") %>% group_by(Month) %>% 
-  summarize(dmean.NO2 = mean(NO2, na.rm = TRUE), dmean.PM25 = mean(PM25, na.rm = TRUE))
+  summarize(dmean.NO2 = mean(NO2, na.rm = TRUE), dmean.PM25 = mean(PM25, na.rm = TRUE), dmean.O3 = mean(O3, na.rm = TRUE))
 
 pollutants.monthly.df$Month <- dym(pollutants.monthly.df$Month)
 #pollutants.monthly.df$dmean.NO2[is.nan(pollutants.monthly.df$dmean.NO2)] <- NA
 
 ggplot(pollutants.monthly.df,aes(Month,dmean.NO2)) + geom_line()
 ggplot(pollutants.monthly.df,aes(Month,dmean.PM25)) + geom_line()
+
+ggplot(pollutants.monthly.df,aes(Month,dmean.O3)) + geom_line(color="#002266") + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(),
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) +
+  scale_x_date(labels = scales::date_format("%m-%Y")) +
+  ggtitle("O3 - Monthly Values") + ylim(0,100)
 
 # (To be done) Time series; fix all the NAs before!
 

@@ -55,10 +55,24 @@ summary(pollutants.df)
 
 pollutants.df$Station_ID <- as.factor(pollutants.df$Station_ID)
 
-# Visualizar NAs & Medidas erroneas de NO2 - ¿Cómo visualizarlas?
-ggplot(pollutants.df,aes(DateTime,NO2)) + geom_line()
-ggplot(pollutants.df,aes(DateTime,PM25)) + geom_line()
-ggplot(pollutants.df,aes(DateTime,O3)) + geom_line()
+# Visualizar NAs & Medidas erroneas de cada contaminante
+ggplot(pollutants.df,aes(DateTime,NO2)) + geom_line() + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(), 
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) + 
+  scale_x_datetime(labels = scales::date_format("%m-%Y")) + 
+  ggtitle("NO2 - Missing & Invalid values")
+
+ggplot(pollutants.df,aes(DateTime,PM25)) + geom_line() + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(), 
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) + 
+  scale_x_datetime(labels = scales::date_format("%m-%Y")) + 
+  ggtitle("PM25 - Missing & Invalid values")
+
+ggplot(pollutants.df,aes(DateTime,O3)) + geom_line() + 
+  theme(legend.position = "none", panel.grid = element_blank(), axis.title.x = element_blank(), 
+        axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5)) + 
+  scale_x_datetime(labels = scales::date_format("%m-%Y")) + 
+  ggtitle("O3 - Missing & Invalid values")
 
 ## Parece que los NAs de los sensores de NO2 y PM2.5 (-999) coinciden...
 ## En cambio los NAs de O3 son distintos
